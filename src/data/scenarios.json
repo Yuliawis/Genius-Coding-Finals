@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "situation": "A wildfire is approaching your neighborhood. You have 30 minutes to evacuate. What do you do first?",
+    "choices": [
+      "Pack valuables and wait to see if it gets worse",
+      "Grab your go-bag, alert neighbors, and leave immediately via the designated evacuation route",
+      "Stay and fight the fire with a garden hose"
+    ],
+    "correct": 1,
+    "points": 15,
+    "explanation": "Immediate evacuation via a pre-planned route is always the safest choice. Every minute counts — fires spread faster than most people expect."
+  },
+  {
+    "id": 2,
+    "situation": "Flash flood warnings are issued for your area. Water is rising in the street outside. What should you do?",
+    "choices": [
+      "Drive through the flooded road to reach higher ground quickly",
+      "Stay indoors, move to the highest floor, and call emergency services",
+      "Go outside and build a sandbag barrier around your car"
+    ],
+    "correct": 1,
+    "points": 15,
+    "explanation": "Just 15cm of moving water can knock a person down. Never drive through flood water — most flood deaths occur in vehicles. Move up, not out."
+  },
+  {
+    "id": 3,
+    "situation": "You feel a strong earthquake while inside a building. What is the correct immediate action?",
+    "choices": [
+      "Run outside as fast as possible",
+      "Drop, cover under a sturdy table, and hold on until shaking stops",
+      "Stand in a doorframe and wait"
+    ],
+    "correct": 1,
+    "points": 20,
+    "explanation": "Drop, Cover, Hold On is the internationally recommended protocol. Running outside during shaking risks falling debris. Doorframes offer no special protection in modern buildings."
+  },
+  {
+    "id": 4,
+    "situation": "A Category 3 hurricane is forecast to hit your coastal town in 48 hours. Authorities issue a mandatory evacuation. You should:",
+    "choices": [
+      "Board up windows and shelter in place — your house is solid",
+      "Follow the evacuation order immediately and drive inland using designated routes",
+      "Wait until the storm is closer to decide — forecasts are often wrong"
+    ],
+    "correct": 1,
+    "points": 15,
+    "explanation": "Mandatory evacuations are issued when shelter-in-place becomes life-threatening. 48-hour notice is limited — roads clog quickly. Leave early."
+  },
+  {
+    "id": 5,
+    "situation": "You are on a beach and notice the ocean suddenly pulling far back, exposing the seafloor. What does this mean?",
+    "choices": [
+      "It's a great time to collect shells — rare natural low tide",
+      "A tsunami may be imminent — move immediately to high ground inland",
+      "A storm surge is coming — stay to watch it approach"
+    ],
+    "correct": 1,
+    "points": 20,
+    "explanation": "Rapid ocean withdrawal is a classic tsunami warning sign. You may have only minutes. Move to high ground immediately — do not wait for an official warning."
+  },
+  {
+    "id": 6,
+    "situation": "A severe drought has lasted 8 months. Your region is under water restrictions. Which action helps the most?",
+    "choices": [
+      "Water your lawn at midday when it's hottest",
+      "Fix leaky pipes, install low-flow fixtures, and collect rainwater for non-drinking uses",
+      "Use more bottled water instead of tap water"
+    ],
+    "correct": 1,
+    "points": 10,
+    "explanation": "Household leaks waste billions of liters per year. Fixing infrastructure and reusing greywater dramatically reduces consumption. Bottled water still uses tap water in production."
+  },
+  {
+    "id": 7,
+    "situation": "After a major earthquake, you smell gas inside your building. What do you do?",
+    "choices": [
+      "Turn on lights to inspect the damage",
+      "Do not operate any switches — open windows, leave immediately, and call emergency services from outside",
+      "Light a candle to see better and look for the source"
+    ],
+    "correct": 1,
+    "points": 20,
+    "explanation": "Any electrical spark near a gas leak can cause an explosion. Never use switches, lighters, or phones inside. Evacuate first, call from a safe distance."
+  },
+  {
+    "id": 8,
+    "situation": "Your community is preparing a disaster response plan. What is the single most important item to include?",
+    "choices": [
+      "A list of expensive emergency gadgets to purchase",
+      "Clear communication and meeting point plans for all family/community members, including those without phones",
+      "A detailed history of past disasters in the region"
+    ],
+    "correct": 1,
+    "points": 15,
+    "explanation": "During a disaster, phones fail and people get separated. A pre-agreed meeting point and communication plan costs nothing and saves lives. Gadgets are secondary."
+  }
+]
