@@ -1,0 +1,14 @@
+[
+  { "month": "Jan", "wildfires": 12, "floods": 8, "earthquakes": 4, "hurricanes": 1 },
+  { "month": "Feb", "wildfires": 9, "floods": 11, "earthquakes": 5, "hurricanes": 0 },
+  { "month": "Mar", "wildfires": 14, "floods": 15, "earthquakes": 3, "hurricanes": 2 },
+  { "month": "Apr", "wildfires": 18, "floods": 9, "earthquakes": 6, "hurricanes": 3 },
+  { "month": "May", "wildfires": 22, "floods": 13, "earthquakes": 4, "hurricanes": 5 },
+  { "month": "Jun", "wildfires": 31, "floods": 18, "earthquakes": 7, "hurricanes": 8 },
+  { "month": "Jul", "wildfires": 40, "floods": 22, "earthquakes": 5, "hurricanes": 12 },
+  { "month": "Aug", "wildfires": 45, "floods": 20, "earthquakes": 6, "hurricanes": 15 },
+  { "month": "Sep", "wildfires": 35, "floods": 17, "earthquakes": 8, "hurricanes": 11 },
+  { "month": "Oct", "wildfires": 27, "floods": 14, "earthquakes": 5, "hurricanes": 6 },
+  { "month": "Nov", "wildfires": 15, "floods": 10, "earthquakes": 4, "hurricanes": 2 },
+  { "month": "Dec", "wildfires": 10, "floods": 8, "earthquakes": 3, "hurricanes": 1 }
+]

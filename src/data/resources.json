@@ -1,0 +1,10 @@
+[
+  { "id": 1, "name": "Emergency Food Kits", "category": "Food", "quantity": 3200, "unit": "kits", "location": "Warehouse A, Houston TX", "status": "available" },
+  { "id": 2, "name": "Bottled Water", "category": "Water", "quantity": 18000, "unit": "bottles", "location": "Warehouse A, Houston TX", "status": "available" },
+  { "id": 3, "name": "First Aid Kits", "category": "Medical", "quantity": 950, "unit": "kits", "location": "Distribution Center B", "status": "available" },
+  { "id": 4, "name": "Emergency Blankets", "category": "Shelter", "quantity": 4500, "unit": "units", "location": "Distribution Center B", "status": "available" },
+  { "id": 5, "name": "Portable Generators", "category": "Power", "quantity": 85, "unit": "units", "location": "Equipment Yard C", "status": "limited" },
+  { "id": 6, "name": "Rescue Boats", "category": "Transport", "quantity": 12, "unit": "boats", "location": "Equipment Yard C", "status": "limited" },
+  { "id": 7, "name": "Satellite Phones", "category": "Communication", "quantity": 40, "unit": "devices", "location": "Command Post", "status": "deployed" },
+  { "id": 8, "name": "Temporary Shelters", "category": "Shelter", "quantity": 200, "unit": "tents", "location": "Warehouse A, Houston TX", "status": "available" }
+]

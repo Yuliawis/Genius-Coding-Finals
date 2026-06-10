@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply min-h-screen bg-[#f3e6dd] text-slate-900 antialiased;
+    background-image:
+      radial-gradient(circle at top left, rgba(237, 168, 126, 0.95), transparent 30%),
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.65), transparent 24%),
+      radial-gradient(circle at bottom left, rgba(250, 214, 184, 0.95), transparent 28%),
+      linear-gradient(135deg, #f4d3c0 0%, #e9ddd5 45%, #dcd8da 100%);
+    background-attachment: fixed;
+  }
+
+  * {
+    @apply border-white/20;
+  }
+}
+
+@layer components {
+  .app-shell {
+    @apply relative min-h-screen overflow-hidden;
+  }
+
+  .ambient-orb {
+    @apply pointer-events-none absolute rounded-full blur-3xl opacity-70;
+  }
+
+  .glass-panel {
+    @apply border border-white/45 bg-white/30 shadow-glass-md backdrop-blur-2xl;
+  }
+
+  .glass-panel-strong {
+    @apply border border-white/60 bg-white/50 shadow-glass-lg backdrop-blur-2xl;
+  }
+
+  .glass-dark {
+    @apply border border-white/15 bg-slate-950/70 text-white shadow-2xl backdrop-blur-2xl;
+  }
+
+  .glass-card {
+    @apply glass-panel rounded-[28px] p-6 transition duration-300 hover:bg-white/35;
+  }
+
+  .glass-input {
+    @apply w-full rounded-2xl border border-white/50 bg-white/45 px-4 py-3 text-slate-800 shadow-inner shadow-white/20 backdrop-blur-xl outline-none transition duration-300 placeholder:text-slate-500 focus:border-white/70 focus:bg-white/60 focus:ring-2 focus:ring-amber-300/50;
+  }
+
+  .glass-button {
+    @apply inline-flex items-center justify-center rounded-2xl px-5 py-3 font-semibold transition duration-300 focus:outline-none focus:ring-2 focus:ring-amber-300/60 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .page-wrap {
+    @apply relative z-10 mx-auto w-full max-w-7xl px-4 pb-16 pt-6 sm:px-6 lg:px-8;
+  }
+
+  .section-heading {
+    @apply text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl;
+  }
+
+  .section-copy {
+    @apply text-sm leading-6 text-slate-600 sm:text-base;
+  }
+}
+
+.maplibregl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.maplibregl-popup-tip {
+  display: none !important;
+}
+
+.maplibregl-ctrl-group {
+  background: rgba(20, 24, 31, 0.86) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28) !important;
+}
+
+.maplibregl-ctrl-group button {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+.maplibregl-ctrl-attrib {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-radius: 9999px !important;
+  margin: 0 14px 14px 0 !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(176, 110, 67, 0.85), rgba(120, 77, 49, 0.9));
+  border-radius: 9999px;
+}
