@@ -27,9 +27,9 @@ export default function Game() {
   return (
     <>
       <Hero
-        title="Preparedness game redesigned like an immersive mission room"
+        title="Disaster Preparedness Game"
         subtitle="Interactive Awareness Module"
-        description="Turn disaster education into something judges can try live. The game keeps the scenario loop simple, visual, and easy to explain while still supporting meaningful learning outcomes."
+        description="Turn disaster education into something engaging and interactive. Play to learn and prepare for real-life emergencies. Let's play!"
         image={
           <div className="glass-panel-strong relative rounded-[28px] p-6">
             <div className="grid grid-cols-2 gap-4">
@@ -40,7 +40,7 @@ export default function Game() {
               </div>
               <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/60">Scoring</p>
-                <p className="mt-3 text-3xl font-semibold">+10</p>
+                <p className="mt-3 text-3xl font-semibold">15 - 30</p>
                 <p className="mt-1 text-sm text-white/70">Per safe choice</p>
               </div>
               <div className="col-span-2 rounded-3xl bg-white/40 p-5">
@@ -70,14 +70,14 @@ export default function Game() {
 
         <Section
           title="Active training simulation"
-          subtitle="A dark glass surface creates contrast so the game feels distinct from the analytics pages while staying in the same overall design system."
+          subtitle="Try to answer as many questions as you can correctly. And learn from each mistake. Do your best!"
         >
           <GameEngine />
         </Section>
 
         <Section
           title="Quick response reminders"
-          subtitle="These compact cards reinforce the educational angle of the MVP and make the page feel fuller for demo use."
+          subtitle="Quick tips to remember in case of an emergency."
         >
           <div className="grid gap-4 md:grid-cols-2">
             {tipCards.map((card) => (

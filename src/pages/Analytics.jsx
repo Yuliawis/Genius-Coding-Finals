@@ -164,8 +164,8 @@ export default function Analytics() {
     <>
       <Hero
         title="ML-backed forecasting for future disaster trends"
-        subtitle="Forecasting and Insight Layer"
-        description="This view now reads directly from the generated regional forecast outputs, turning the model results into future trend charts and planning signals that react to the selected region."
+        subtitle="Forecasting"
+        description="By using machine learning, we try to predict future disaster trends and help with planning and preparedness."
         image={
           <div className="glass-panel-strong relative rounded-[28px] p-6">
             <div className="grid grid-cols-2 gap-4">
@@ -246,14 +246,14 @@ export default function Analytics() {
               {mostCommon?.['Disaster Type'] || 'Flood'} is projected to remain the most frequent disaster type in {selectedRegion} during {defaultForecastYear}.
             </Alert>
             <Alert variant="info" title="Prediction" closeable={false}>
-              The graph is now rendered from `outputs/monthly_forecast_by_region_and_disaster_type.csv`.
+              The model predicts a moderate increase in the number of disasters in the coming months.
             </Alert>
           </div>
         </section>
 
         <Section
           title="Disaster type analysis"
-          subtitle="These cards combine incident counts and trend direction into a format that reads well in both desktop demos and quick verbal walkthroughs."
+          subtitle="Let's analyze the different types of disasters and their trends."
         >
           <div className="grid gap-4 md:grid-cols-2">
             {analysisCards.map((card) => (

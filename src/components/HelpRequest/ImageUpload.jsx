@@ -5,7 +5,7 @@ export default function ImageUpload({ fileName = '', onFileChange, analysisHint 
         <div>
           <p className="text-sm font-semibold text-slate-900">Upload damage photo for severity review</p>
           <p className="mt-1 text-sm text-slate-600">
-            Upload a JPG image and the backend will send it to Gemini to estimate disaster severity from visible damage.
+            Upload a JPG image and the backend will send it t to estimate disaster severity from visible damage.
           </p>
         </div>
         <label className="glass-button glass-panel cursor-pointer text-slate-800">

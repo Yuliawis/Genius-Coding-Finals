@@ -163,9 +163,9 @@ export default function HelpRequest() {
   return (
     <>
       <Hero
-        title="Human-centered support request flow"
+        title="Tell us what exactly you need"
         subtitle="Emergency Intake"
-        description="Capture incident details, location, urgency, and photo evidence in a clear triage experience that still feels polished enough for a live hackathon demo."
+        description="Capture incident details, location, urgency, and photo evidence for us to understand the problem."
         image={
           <div className="glass-panel-strong relative space-y-3 rounded-[28px] p-6">
             <div className="flex items-center justify-between rounded-3xl bg-white/50 p-5">
@@ -192,11 +192,11 @@ export default function HelpRequest() {
         <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <Section
             title="Emergency request form"
-            subtitle="Every field is organized to keep the workflow fast, calm, and understandable during stressful moments."
+            subtitle="Help us understand your situation."
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <Alert variant="info" title="How this works" closeable={false}>
-                The backend validates the form, sends any uploaded image to Gemini for severity scoring, and can store the submitted request in Supabase.
+                The backend validates the form, sends any uploaded image for severity scoring, and will store the submitted request in our system.
               </Alert>
 
               {submitError && (
@@ -289,14 +289,14 @@ export default function HelpRequest() {
 
           <div className="space-y-6">
             <div className="glass-dark rounded-[32px] p-6">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Triage Intent</p>
-              <h2 className="mt-4 text-3xl font-semibold text-white">Fast, explainable intake</h2>
+              <p className="text-xs uppercase tracking-[0.3em] text-white/50">Purpose</p>
+              <h2 className="mt-4 text-3xl font-semibold text-white">We want to help you!</h2>
               <p className="mt-4 text-sm leading-7 text-white/75">
-                This page is designed to show how the product turns raw community reports into something responders can quickly assess and prioritize.
+                This page is designed to help you get the support you need quickly and efficiently.
               </p>
             </div>
 
-            <Section title="What responders need" subtitle="These prompt cards help explain the purpose of the form fields during the demo.">
+            <Section title="What responders need">
               <div className="grid gap-4">
                 <div className="rounded-[24px] bg-white/35 p-5">
                   <h3 className="text-lg font-semibold text-slate-900">Location precision</h3>
@@ -308,7 +308,7 @@ export default function HelpRequest() {
                 </div>
                 <div className="rounded-[24px] bg-white/35 p-5">
                   <h3 className="text-lg font-semibold text-slate-900">Image evidence</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">The uploaded image is analyzed by Gemini for severity scoring, with a local fallback if the API is unavailable.</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">The uploaded image is analyzed for severity scoring.</p>
                 </div>
               </div>
             </Section>
