@@ -5,53 +5,185 @@ import StatCard from '../components/Common/StatCard'
 import Filter from '../components/Common/Filter'
 import SeverityChart from '../components/Dashboard/SeverityChart'
 import Alert from '../components/Common/Alert'
+import monthlyForecastCsv from '../../outputs/monthly_forecast_by_region_and_disaster_type.csv?raw'
+import yearlyForecastCsv from '../../outputs/yearly_forecast_by_region_and_disaster_type.csv?raw'
 
-const analysisCards = [
-  { title: 'Wildfires', incidents: 89, trend: '18% increase YoY', width: '65%', bar: 'from-orange-500 to-rose-500' },
-  { title: 'Floods', incidents: 72, trend: '8% decrease YoY', width: '52%', bar: 'from-sky-500 to-cyan-500' },
-  { title: 'Earthquakes', incidents: 54, trend: '3% increase YoY', width: '39%', bar: 'from-slate-500 to-slate-700' },
-  { title: 'Hurricanes', incidents: 32, trend: '12% decrease YoY', width: '23%', bar: 'from-violet-500 to-fuchsia-500' },
+const FORECAST_LINES = [
+  { key: 'Flood', color: '#2563eb', name: 'Flood' },
+  { key: 'Storm', color: '#7c3aed', name: 'Storm' },
+  { key: 'Earthquake', color: '#475569', name: 'Earthquake' },
+  { key: 'Wildfire', color: '#ea580c', name: 'Wildfire' },
 ]
+
+function parseCsvLine(line) {
+  const values = []
+  let current = ''
+  let inQuotes = false
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index]
+    const nextChar = line[index + 1]
+
+    if (char === '"') {
+      if (inQuotes && nextChar === '"') {
+        current += '"'
+        index += 1
+      } else {
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      values.push(current)
+      current = ''
+    } else {
+      current += char
+    }
+  }
+
+  values.push(current)
+  return values
+}
+
+function parseCsv(raw) {
+  const lines = raw.trim().split(/\r?\n/)
+  const headers = parseCsvLine(lines[0])
+
+  return lines.slice(1).map((line) => {
+    const columns = parseCsvLine(line)
+    return Object.fromEntries(headers.map((header, index) => [header, columns[index] ?? '']))
+  })
+}
+
+const monthlyForecast = parseCsv(monthlyForecastCsv).map((row) => ({
+  ...row,
+  year: Number(row.year),
+  month: Number(row.month),
+  predicted_count: Number(row.predicted_count),
+}))
+
+const yearlyForecast = parseCsv(yearlyForecastCsv).map((row) => ({
+  ...row,
+  year: Number(row.year),
+  predicted_count: Number(row.predicted_count),
+}))
+
+const availableYears = [...new Set(yearlyForecast.map((row) => row.year))].sort((a, b) => a - b)
+const defaultForecastYear = availableYears[0]
+
+function formatMonthLabel(year, month) {
+  return new Date(year, month - 1, 1).toLocaleDateString('en-US', {
+    month: 'short',
+    year: '2-digit',
+  })
+}
 
 export default function Analytics() {
   const [selectedRegion, setSelectedRegion] = useState('All regions')
+  const [selectedRange, setSelectedRange] = useState('12m')
 
   const handleFilterApply = (values) => {
     const regionMap = {
-      na: 'North America',
-      sa: 'South America',
+      na: 'Americas',
+      sa: 'Americas',
       eu: 'Europe',
       asia: 'Asia',
       africa: 'Africa',
     }
 
     setSelectedRegion(regionMap[values.region] || 'All regions')
+    setSelectedRange(values.timeRange || '12m')
   }
+
+  const monthsToShow = {
+    '3m': 3,
+    '6m': 6,
+    '12m': 12,
+    '24m': 24,
+  }[selectedRange] || 12
+
+  const regionAwareForecast = monthlyForecast.filter((row) => (
+    selectedRegion === 'All regions' ? true : row.Region === selectedRegion
+  ))
+
+  const regionAwareYearlyForecast = yearlyForecast.filter((row) => (
+    selectedRegion === 'All regions' ? true : row.Region === selectedRegion
+  ))
+
+  const uniqueTypesInScope = new Set(regionAwareForecast.map((row) => row['Disaster Type'])).size || 1
+  const monthlyRows = regionAwareForecast.slice(0, monthsToShow * uniqueTypesInScope)
+  const chartData = monthlyRows.reduce((accumulator, row) => {
+    const key = `${row.year}-${row.month}`
+    const existing = accumulator.get(key) || {
+      label: formatMonthLabel(row.year, row.month),
+    }
+
+    existing[row['Disaster Type']] = Number(row.predicted_count.toFixed(1))
+    accumulator.set(key, existing)
+    return accumulator
+  }, new Map())
+
+  const forecastChartData = Array.from(chartData.values())
+  const firstYearRows = regionAwareYearlyForecast.filter((row) => row.year === defaultForecastYear)
+  const topTypes = [...firstYearRows]
+    .sort((a, b) => b.predicted_count - a.predicted_count)
+    .slice(0, 4)
+
+  const totalForecastEvents = firstYearRows.reduce((sum, row) => sum + row.predicted_count, 0)
+  const mostCommon = topTypes[0]
+  const peakMonth = [...forecastChartData]
+    .map((row) => ({
+      label: row.label,
+      total: FORECAST_LINES.reduce((sum, line) => sum + (Number(row[line.key]) || 0), 0),
+    }))
+    .sort((a, b) => b.total - a.total)[0]
+
+  const highestGrowth = [...topTypes].sort((a, b) => b.predicted_count - a.predicted_count)[0]
+  const analysisCards = topTypes.map((row, index) => {
+    const nextYearRow = regionAwareYearlyForecast.find((item) => (
+      item.year === defaultForecastYear + 1 &&
+      item['Disaster Type'] === row['Disaster Type']
+    ))
+    const growth = nextYearRow ? ((nextYearRow.predicted_count - row.predicted_count) / Math.max(row.predicted_count, 1)) * 100 : 0
+    const widths = ['78%', '68%', '55%', '42%']
+    const bars = [
+      'from-sky-500 to-cyan-500',
+      'from-violet-500 to-indigo-500',
+      'from-slate-500 to-slate-700',
+      'from-orange-500 to-amber-500',
+    ]
+
+    return {
+      title: row['Disaster Type'],
+      incidents: Math.round(row.predicted_count),
+      trend: `${growth >= 0 ? '+' : ''}${growth.toFixed(1)}% projected into ${defaultForecastYear + 1}`,
+      width: widths[index] || '45%',
+      bar: bars[index] || 'from-sky-500 to-cyan-500',
+    }
+  })
 
   return (
     <>
       <Hero
-        title="Analytics pages now feel like premium executive briefings"
+        title="ML-backed forecasting for future disaster trends"
         subtitle="Forecasting and Insight Layer"
-        description="Use this view to explain trend analysis, model confidence, and seasonal risk signals with polished cards instead of raw charts alone."
+        description="This view now reads directly from the generated regional forecast outputs, turning the model results into future trend charts and planning signals that react to the selected region."
         image={
           <div className="glass-panel-strong relative rounded-[28px] p-6">
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-3xl bg-white/50 p-5">
-                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Total Events</p>
-                <p className="mt-3 text-3xl font-semibold text-slate-900">247</p>
-                <p className="mt-1 text-sm text-slate-600">+34% vs last year</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Forecast Year</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">{defaultForecastYear}</p>
+                <p className="mt-1 text-sm text-slate-600">{Math.round(totalForecastEvents)} predicted disasters in {selectedRegion}</p>
               </div>
               <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
-                <p className="text-xs uppercase tracking-[0.3em] text-white/60">Model Accuracy</p>
-                <p className="mt-3 text-3xl font-semibold">87.3%</p>
-                <p className="mt-1 text-sm text-white/70">Severity prediction</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-white/60">Forecast Horizon</p>
+                <p className="mt-3 text-3xl font-semibold">{availableYears.length} years</p>
+                <p className="mt-1 text-sm text-white/70">{availableYears[0]} to {availableYears[availableYears.length - 1]}</p>
               </div>
               <div className="col-span-2 rounded-3xl bg-white/40 p-5">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Trend</p>
-                    <p className="mt-2 text-xl font-semibold text-slate-900">Wildfire activity rising in dry months</p>
+                    <p className="mt-2 text-xl font-semibold text-slate-900">{mostCommon?.['Disaster Type'] || 'Flood'} leads the projected count in {selectedRegion} for {defaultForecastYear}</p>
                   </div>
                   <div className="rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-slate-700">Forecast</div>
                 </div>
@@ -92,29 +224,29 @@ export default function Analytics() {
         />
 
         <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          <StatCard label="Total Events" value="247" icon="Data" color="blue" trend={{ direction: 'up', value: 34, label: 'vs previous year' }} />
-          <StatCard label="Avg Severity" value="6.8" unit="/10" icon="Risk" color="red" trend={{ direction: 'down', value: 12, label: 'vs previous year' }} />
-          <StatCard label="Peak Month" value="July" icon="Season" color="yellow" />
-          <StatCard label="Most Common" value="Wildfire" icon="Pattern" color="purple" />
+          <StatCard label="Total Events" value={Math.round(totalForecastEvents)} icon="Data" color="blue" />
+          <StatCard label="Peak Month" value={peakMonth?.label || 'N/A'} icon="Season" color="yellow" />
+          <StatCard label="Most Common" value={mostCommon?.['Disaster Type'] || 'N/A'} icon="Pattern" color="purple" />
+          <StatCard label="Tracked Types" value={new Set(yearlyForecast.map((row) => row['Disaster Type'])).size} icon="Risk" color="red" />
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
           <Section
             title="Trendline overview"
-            subtitle={`Historical sample trends for ${selectedRegion}.`}
+            subtitle={`Future monthly forecast from the regional output files for ${selectedRegion}.`}
           >
-            <SeverityChart />
+            <SeverityChart data={forecastChartData} lines={FORECAST_LINES} xKey="label" yLabel="Forecasted Events" />
           </Section>
 
           <div className="space-y-4">
             <Alert variant="success" title="Positive Trend" closeable={false}>
-              Critical events decreased by 15% compared with the previous quarter.
+              The forecast suggests the busiest month in the visible horizon is {peakMonth?.label || 'the upcoming peak window'}.
             </Alert>
             <Alert variant="warning" title="Seasonal Pattern" closeable={false}>
-              Wildfire activity remains concentrated in hotter, drier months.
+              {mostCommon?.['Disaster Type'] || 'Flood'} is projected to remain the most frequent disaster type in {selectedRegion} during {defaultForecastYear}.
             </Alert>
             <Alert variant="info" title="Prediction" closeable={false}>
-              Flood probability rises in Q2 under the current climate assumptions used in the MVP.
+              The graph is now rendered from `outputs/monthly_forecast_by_region_and_disaster_type.csv`.
             </Alert>
           </div>
         </section>
@@ -139,28 +271,16 @@ export default function Analytics() {
           </div>
         </Section>
 
-        <section className="grid gap-6 lg:grid-cols-2">
+        <section>
           <Section
-            title="Model performance"
-            subtitle="Lightweight ML framing that is easy to discuss without overpromising."
+            title="Forecast coverage"
+            subtitle="Simple model output facts drawn from the generated forecast files."
           >
             <div className="space-y-3 text-sm text-slate-700">
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Accuracy</span><span className="font-semibold text-emerald-700">87.3%</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Precision</span><span className="font-semibold text-emerald-700">84.9%</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Recall</span><span className="font-semibold text-emerald-700">82.1%</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>F1 Score</span><span className="font-semibold text-emerald-700">83.5%</span></div>
-            </div>
-          </Section>
-
-          <Section
-            title="Training data"
-            subtitle="Support data points for explaining model credibility in a simple, MVP-safe way."
-          >
-            <div className="space-y-3 text-sm text-slate-700">
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Historical Events</span><span className="font-semibold text-slate-900">15,000+</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Features Used</span><span className="font-semibold text-slate-900">47</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Regions Covered</span><span className="font-semibold text-slate-900">180+</span></div>
-              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Last Updated</span><span className="font-semibold text-slate-900">Demo Mode</span></div>
+              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Forecast Start</span><span className="font-semibold text-slate-900">{availableYears[0]}</span></div>
+              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Forecast End</span><span className="font-semibold text-slate-900">{availableYears[availableYears.length - 1]}</span></div>
+              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Monthly Rows</span><span className="font-semibold text-slate-900">{regionAwareForecast.length}</span></div>
+              <div className="flex justify-between rounded-2xl bg-white/30 px-4 py-3"><span>Yearly Rows</span><span className="font-semibold text-slate-900">{regionAwareYearlyForecast.length}</span></div>
             </div>
           </Section>
         </section>

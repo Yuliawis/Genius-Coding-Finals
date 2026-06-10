@@ -88,7 +88,6 @@ export default function Home() {
 
         <Section
           title="Explore the platform"
-          subtitle="Everything you need to understand, respond to, and prepare for environmental emergencies in one place."
         >
           <div className="grid gap-6 md:grid-cols-3">
             {features.map((feature) => (

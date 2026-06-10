@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-import disasters, { disasterSource } from '../../data/disasters'
+import disasters from '../../data/disasters'
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
 const ALERT_SOURCE_ID = 'alert-points'
@@ -420,7 +420,7 @@ export default function GlobeView({ alerts = disasters }) {
         </div>
 
         <div className="mt-5 rounded-[22px] border border-white/8 bg-white/5 p-4 text-xs leading-6 text-white/55">
-          Source: {disasterSource.provider} via {disasterSource.localExport}. Marker styling and popup treatment were updated to match the dark references more closely.
+          Source: EM-DAT Public
         </div>
       </div>
     </div>

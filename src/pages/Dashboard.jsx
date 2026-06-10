@@ -7,11 +7,85 @@ import ResourceTable from '../components/Dashboard/ResourceTable'
 import Alert from '../components/Common/Alert'
 import Filter from '../components/Common/Filter'
 import GlobeView from '../components/Globe/GlobeView'
-import disasters, { disasterSource } from '../data/disasters'
+import disasters from '../data/disasters'
+import yearlyRegionalForecastCsv from '../../outputs/yearly_forecast_by_region_and_disaster_type.csv?raw'
 
 const totalPeople = disasters.reduce((sum, disaster) => sum + disaster.affectedPeople, 0)
 const criticalCount = disasters.filter((disaster) => disaster.severity === 'critical').length
 const regionCount = new Set(disasters.map((disaster) => disaster.location.split(',').pop().trim())).size
+
+function parseCsvLine(line) {
+  const values = []
+  let current = ''
+  let inQuotes = false
+
+  for (let index = 0; index < line.length; index += 1) {
+    const char = line[index]
+    const nextChar = line[index + 1]
+
+    if (char === '"') {
+      if (inQuotes && nextChar === '"') {
+        current += '"'
+        index += 1
+      } else {
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      values.push(current)
+      current = ''
+    } else {
+      current += char
+    }
+  }
+
+  values.push(current)
+  return values
+}
+
+function parseCsv(raw) {
+  const lines = raw.trim().split(/\r?\n/)
+  const headers = parseCsvLine(lines[0])
+
+  return lines.slice(1).map((line) => {
+    const columns = parseCsvLine(line)
+    return Object.fromEntries(headers.map((header, index) => [header, columns[index] ?? '']))
+  })
+}
+
+const yearlyRegionalForecast = parseCsv(yearlyRegionalForecastCsv).map((row) => ({
+  ...row,
+  year: Number(row.year),
+  predicted_count: Number(row.predicted_count),
+}))
+
+const forecastYears = [...new Set(yearlyRegionalForecast.map((row) => row.year))].sort((a, b) => a - b)
+const firstForecastYear = forecastYears[0]
+
+function buildForecastInsight(disasterType, regionalRows) {
+  const firstYearRows = regionalRows.filter((row) => row.year === firstForecastYear && row['Disaster Type'] === disasterType)
+  const total = firstYearRows.reduce((sum, row) => sum + row.predicted_count, 0)
+  const topRegion = [...firstYearRows].sort((a, b) => b.predicted_count - a.predicted_count)[0]
+
+  let level = 'Low'
+  if (total >= 20) level = 'High'
+  else if (total >= 5) level = 'Medium'
+
+  const descriptor = disasterType.toLowerCase()
+  const roundedTotal = Math.round(total)
+  const regionText = topRegion?.Region || 'the monitored regions'
+
+  const messageMap = {
+    Flood: `${regionText} shows the strongest projected ${descriptor} pressure in ${firstForecastYear}, with about ${roundedTotal} forecast events overall.`,
+    Wildfire: `${regionText} carries the clearest projected ${descriptor} signal in ${firstForecastYear}, with about ${roundedTotal} forecast events overall.`,
+    Storm: `${regionText} remains the main projected ${descriptor} zone in ${firstForecastYear}, with about ${roundedTotal} forecast events overall.`,
+  }
+
+  return {
+    label: `${disasterType} Risk`,
+    level,
+    message: messageMap[disasterType] || `${regionText} leads the projected ${descriptor} activity in ${firstForecastYear}.`,
+  }
+}
 
 export default function Dashboard() {
   const [filters, setFilters] = useState({})
@@ -32,12 +106,21 @@ export default function Dashboard() {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3)
 
+  const forecastInsights = useMemo(
+    () => [
+      buildForecastInsight('Flood', yearlyRegionalForecast),
+      buildForecastInsight('Wildfire', yearlyRegionalForecast),
+      buildForecastInsight('Storm', yearlyRegionalForecast),
+    ],
+    [],
+  )
+
   return (
     <>
       <Hero
-        title="Operational dashboard with calm, high-clarity glass panels"
-        subtitle="Live Response Dashboard"
-        description="Track active incidents, resource posture, and near-term risk patterns in a presentation-ready control room built for fast comprehension."
+        title="Operational dashboard"
+        subtitle="Dashboard"
+        description="Here you can track active incidents, resource posture, and risk patterns."
         image={
           <div className="glass-panel-strong relative rounded-[28px] p-6">
             <div className="grid grid-cols-2 gap-4">
@@ -66,9 +149,6 @@ export default function Dashboard() {
       />
 
       <div className="page-wrap space-y-8">
-        <div className="glass-panel rounded-[24px] px-5 py-4 text-sm text-slate-700">
-          Current alerts are mapped from {disasterSource.provider} data in <span className="font-semibold">{disasterSource.localExport}</span>.
-        </div>
         <Alert variant="warning" title="Critical watch">
           {filteredCriticalCount} active critical disaster events match the current filters. Use the resource inventory and analytics views to explain prioritization decisions.
         </Alert>
@@ -110,7 +190,7 @@ export default function Dashboard() {
 
         <Section
           title="Interactive global alert map"
-          subtitle="The 3D globe, alert points, popup cards, and explorer panel now live in the dashboard where the operational experience belongs."
+          subtitle="Check out a 3d map."
         >
           <GlobeView alerts={filteredData} />
         </Section>
@@ -118,7 +198,7 @@ export default function Dashboard() {
         <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
           <Section
             title="Severity trendline"
-            subtitle="Month-over-month movement across the major disaster categories represented in the MVP."
+            subtitle="Month-over-month movement across the major disaster categories."
           >
             <SeverityChart />
           </Section>
@@ -152,21 +232,13 @@ export default function Dashboard() {
             title="Predictions and insights"
           >
             <div className="grid gap-4">
-              <div className="rounded-[24px] bg-white/35 p-5">
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Flood Risk</p>
-                <p className="mt-2 text-2xl font-semibold text-slate-900">Low</p>
-                <p className="mt-2 text-sm text-slate-600">Most monitored regions show stable conditions over the next 7 days.</p>
-              </div>
-              <div className="rounded-[24px] bg-white/35 p-5">
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Wildfire Risk</p>
-                <p className="mt-2 text-2xl font-semibold text-slate-900">Medium</p>
-                <p className="mt-2 text-sm text-slate-600">Western zones remain heat-sensitive and should keep crews ready.</p>
-              </div>
-              <div className="rounded-[24px] bg-white/35 p-5">
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Storm Risk</p>
-                <p className="mt-2 text-2xl font-semibold text-slate-900">High</p>
-                <p className="mt-2 text-sm text-slate-600">Coastal regions need extra shelter coordination and communications prep.</p>
-              </div>
+              {forecastInsights.map((item) => (
+                <div key={item.label} className="rounded-[24px] bg-white/35 p-5">
+                  <p className="text-xs uppercase tracking-[0.25em] text-slate-500">{item.label}</p>
+                  <p className="mt-2 text-2xl font-semibold text-slate-900">{item.level}</p>
+                  <p className="mt-2 text-sm text-slate-600">{item.message}</p>
+                </div>
+              ))}
             </div>
           </Section>
         </section>

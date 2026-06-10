@@ -36,7 +36,7 @@ export default function Game() {
               <div className="rounded-3xl bg-white/50 p-5">
                 <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Scenarios</p>
                 <p className="mt-3 text-3xl font-semibold text-slate-900">8</p>
-                <p className="mt-1 text-sm text-slate-600">Real-world situations</p>
+                <p className="mt-1 text-sm text-slate-600">Random picks per round</p>
               </div>
               <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
                 <p className="text-xs uppercase tracking-[0.3em] text-white/60">Scoring</p>
@@ -59,7 +59,7 @@ export default function Game() {
 
       <div className="page-wrap space-y-8">
         <Alert variant="info" title="How to play">
-          Each scenario asks the player to choose the best response. The system awards points for safer decisions and reveals an explanation after every choice.
+          Each round pulls 8 random questions from the 200-question list. The system awards points for safer decisions and reveals an explanation after every choice.
         </Alert>
 
         <section className="grid gap-6 md:grid-cols-3">

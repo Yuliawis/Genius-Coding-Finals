@@ -196,7 +196,7 @@ export default function HelpRequest() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <Alert variant="info" title="How this works" closeable={false}>
-                The backend validates the form, sends any uploaded image to Gemini for severity scoring.
+                The backend validates the form, sends any uploaded image to Gemini for severity scoring, and can store the submitted request in Supabase.
               </Alert>
 
               {submitError && (
@@ -327,6 +327,13 @@ export default function HelpRequest() {
                 <p className="mt-2"><span className="font-semibold text-slate-900">Analysis Source:</span> {result.severityAssessment?.source}</p>
                 <p className="mt-2"><span className="font-semibold text-slate-900">Routing:</span> {result.severityAssessment?.routingTag}</p>
                 <p className="mt-2"><span className="font-semibold text-slate-900">Response Window:</span> {result.severityAssessment?.responseWindow}</p>
+                <p className="mt-2"><span className="font-semibold text-slate-900">Saved to Database:</span> {result.database?.saved ? 'Yes' : 'No'}</p>
+                {result.database?.rowId && (
+                  <p className="mt-2"><span className="font-semibold text-slate-900">Supabase Row ID:</span> {result.database.rowId}</p>
+                )}
+                {result.database?.error && (
+                  <p className="mt-2"><span className="font-semibold text-slate-900">Database Note:</span> {result.database.error}</p>
+                )}
               </div>
             )}
             <Button onClick={() => setSuccessModal(false)} className="w-full">
