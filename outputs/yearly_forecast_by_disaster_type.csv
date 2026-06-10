@@ -1,0 +1,71 @@
+year,Disaster Type,predicted_count
+2026,Animal incident,1.6671944
+2026,Drought,7.4930496
+2026,Earthquake,28.513275
+2026,Epidemic,11.335304
+2026,Extreme temperature,19.898872
+2026,Flood,140.99554
+2026,Glacial lake outburst flood,1.3065519
+2026,Impact,1.2532539
+2026,Infestation,1.3799362
+2026,Mass movement (dry),1.7562351
+2026,Mass movement (wet),14.063684
+2026,Storm,136.97485
+2026,Volcanic activity,4.466978
+2026,Wildfire,9.496841
+2027,Animal incident,1.7792168
+2027,Drought,7.649668
+2027,Earthquake,36.637074
+2027,Epidemic,10.381012
+2027,Extreme temperature,20.481358
+2027,Flood,148.24745
+2027,Glacial lake outburst flood,1.2354736
+2027,Impact,1.290123
+2027,Infestation,1.4860611
+2027,Mass movement (dry),1.7780569
+2027,Mass movement (wet),13.422928
+2027,Storm,138.104
+2027,Volcanic activity,4.3067374
+2027,Wildfire,8.462883
+2028,Animal incident,1.7658005
+2028,Drought,7.501931
+2028,Earthquake,40.632362
+2028,Epidemic,9.092477
+2028,Extreme temperature,21.795864
+2028,Flood,149.22905
+2028,Glacial lake outburst flood,1.2804794
+2028,Impact,1.2887192
+2028,Infestation,1.5195923
+2028,Mass movement (dry),1.7212238
+2028,Mass movement (wet),13.508347
+2028,Storm,139.87012
+2028,Volcanic activity,4.0894775
+2028,Wildfire,8.267204
+2029,Animal incident,1.765358
+2029,Drought,7.3394794
+2029,Earthquake,41.912098
+2029,Epidemic,7.580902
+2029,Extreme temperature,22.475037
+2029,Flood,149.51503
+2029,Glacial lake outburst flood,1.3322477
+2029,Impact,1.3213425
+2029,Infestation,1.5327911
+2029,Mass movement (dry),1.6800823
+2029,Mass movement (wet),13.855728
+2029,Storm,141.38965
+2029,Volcanic activity,3.8927984
+2029,Wildfire,8.212048
+2030,Animal incident,1.8023567
+2030,Drought,7.1174755
+2030,Earthquake,42.15788
+2030,Epidemic,6.0763445
+2030,Extreme temperature,23.245193
+2030,Flood,149.55571
+2030,Glacial lake outburst flood,1.4130936
+2030,Impact,1.3794212
+2030,Infestation,1.555644
+2030,Mass movement (dry),1.6310062
+2030,Mass movement (wet),14.254799
+2030,Storm,143.07227
+2030,Volcanic activity,3.698964
+2030,Wildfire,8.229622

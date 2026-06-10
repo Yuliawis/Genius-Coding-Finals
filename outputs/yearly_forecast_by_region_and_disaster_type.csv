@@ -1,0 +1,351 @@
+year,Region,Disaster Type,predicted_count
+2026,Africa,Animal incident,0.2498703
+2026,Africa,Drought,2.982666
+2026,Africa,Earthquake,1.503006
+2026,Africa,Epidemic,6.930847
+2026,Africa,Extreme temperature,0.61096954
+2026,Africa,Flood,25.353516
+2026,Africa,Glacial lake outburst flood,0.16946411
+2026,Africa,Impact,0.13880539
+2026,Africa,Infestation,0.34204865
+2026,Africa,Mass movement (dry),0.3382969
+2026,Africa,Mass movement (wet),2.0117188
+2026,Africa,Storm,13.018799
+2026,Africa,Volcanic activity,0.8047867
+2026,Africa,Wildfire,1.1853027
+2026,Americas,Animal incident,0.6491394
+2026,Americas,Drought,1.8898926
+2026,Americas,Earthquake,2.7644348
+2026,Americas,Epidemic,1.6710815
+2026,Americas,Extreme temperature,1.7346039
+2026,Americas,Flood,31.432617
+2026,Americas,Glacial lake outburst flood,0.47153473
+2026,Americas,Impact,0.4409256
+2026,Americas,Infestation,0.4468689
+2026,Americas,Mass movement (dry),0.59329987
+2026,Americas,Mass movement (wet),2.7581787
+2026,Americas,Storm,36.74414
+2026,Americas,Volcanic activity,1.6114044
+2026,Americas,Wildfire,3.4909668
+2026,Asia,Animal incident,0.37803268
+2026,Asia,Drought,1.8448639
+2026,Asia,Earthquake,22.93457
+2026,Asia,Epidemic,2.1317139
+2026,Asia,Extreme temperature,3.5097656
+2026,Asia,Flood,61.22461
+2026,Asia,Glacial lake outburst flood,0.5027895
+2026,Asia,Impact,0.30377197
+2026,Asia,Infestation,0.3799286
+2026,Asia,Mass movement (dry),0.4510498
+2026,Asia,Mass movement (wet),8.3376465
+2026,Asia,Storm,58.526367
+2026,Asia,Volcanic activity,1.1699219
+2026,Asia,Wildfire,1.944519
+2026,Europe,Animal incident,0.025772095
+2026,Europe,Drought,0.12994957
+2026,Europe,Earthquake,0.46279144
+2026,Europe,Epidemic,0.0
+2026,Europe,Extreme temperature,13.487839
+2026,Europe,Flood,18.205566
+2026,Europe,Glacial lake outburst flood,0.0
+2026,Europe,Impact,0.0340271
+2026,Europe,Infestation,0.0
+2026,Europe,Mass movement (dry),0.0
+2026,Europe,Mass movement (wet),0.19841957
+2026,Europe,Storm,21.90625
+2026,Europe,Volcanic activity,0.03832817
+2026,Europe,Wildfire,1.8895721
+2026,Oceania,Animal incident,0.36437988
+2026,Oceania,Drought,0.64567757
+2026,Oceania,Earthquake,0.8484726
+2026,Oceania,Epidemic,0.6016617
+2026,Oceania,Extreme temperature,0.5556946
+2026,Oceania,Flood,4.779236
+2026,Oceania,Glacial lake outburst flood,0.1627636
+2026,Oceania,Impact,0.33572388
+2026,Oceania,Infestation,0.21109009
+2026,Oceania,Mass movement (dry),0.37358856
+2026,Oceania,Mass movement (wet),0.75772095
+2026,Oceania,Storm,6.779297
+2026,Oceania,Volcanic activity,0.8425369
+2026,Oceania,Wildfire,0.9864807
+2027,Africa,Animal incident,0.24311447
+2027,Africa,Drought,3.137207
+2027,Africa,Earthquake,0.82901335
+2027,Africa,Epidemic,5.96933
+2027,Africa,Extreme temperature,0.72792053
+2027,Africa,Flood,26.979492
+2027,Africa,Glacial lake outburst flood,0.18664551
+2027,Africa,Impact,0.13450623
+2027,Africa,Infestation,0.4094925
+2027,Africa,Mass movement (dry),0.33779502
+2027,Africa,Mass movement (wet),1.6045532
+2027,Africa,Storm,13.44458
+2027,Africa,Volcanic activity,0.8378296
+2027,Africa,Wildfire,1.1823425
+2027,Americas,Animal incident,0.75271606
+2027,Americas,Drought,1.8027649
+2027,Americas,Earthquake,2.699173
+2027,Americas,Epidemic,1.6830444
+2027,Americas,Extreme temperature,1.9152756
+2027,Americas,Flood,32.976562
+2027,Americas,Glacial lake outburst flood,0.4938202
+2027,Americas,Impact,0.46582794
+2027,Americas,Infestation,0.47384644
+2027,Americas,Mass movement (dry),0.59046936
+2027,Americas,Mass movement (wet),2.4366455
+2027,Americas,Storm,35.54492
+2027,Americas,Volcanic activity,1.5374794
+2027,Americas,Wildfire,2.9100342
+2027,Asia,Animal incident,0.3970337
+2027,Asia,Drought,1.9329758
+2027,Asia,Earthquake,31.80664
+2027,Asia,Epidemic,2.171997
+2027,Asia,Extreme temperature,3.9368849
+2027,Asia,Flood,62.320312
+2027,Asia,Glacial lake outburst flood,0.39189148
+2027,Asia,Impact,0.31462097
+2027,Asia,Infestation,0.39463806
+2027,Asia,Mass movement (dry),0.47473145
+2027,Asia,Mass movement (wet),8.4748535
+2027,Asia,Storm,58.63379
+2027,Asia,Volcanic activity,1.1279297
+2027,Asia,Wildfire,1.581459
+2027,Europe,Animal incident,0.023544312
+2027,Europe,Drought,0.17523432
+2027,Europe,Earthquake,0.48171997
+2027,Europe,Epidemic,0.0
+2027,Europe,Extreme temperature,13.323486
+2027,Europe,Flood,20.157227
+2027,Europe,Glacial lake outburst flood,0.0
+2027,Europe,Impact,0.06390381
+2027,Europe,Infestation,0.0
+2027,Europe,Mass movement (dry),0.0
+2027,Europe,Mass movement (wet),0.2349701
+2027,Europe,Storm,21.7417
+2027,Europe,Volcanic activity,0.031651914
+2027,Europe,Wildfire,1.9380188
+2027,Oceania,Animal incident,0.36280823
+2027,Oceania,Drought,0.6014862
+2027,Oceania,Earthquake,0.8205261
+2027,Oceania,Epidemic,0.5566406
+2027,Oceania,Extreme temperature,0.5777893
+2027,Oceania,Flood,5.813858
+2027,Oceania,Glacial lake outburst flood,0.16311646
+2027,Oceania,Impact,0.31126404
+2027,Oceania,Infestation,0.2080841
+2027,Oceania,Mass movement (dry),0.37506104
+2027,Oceania,Mass movement (wet),0.6719055
+2027,Oceania,Storm,8.739014
+2027,Oceania,Volcanic activity,0.7718468
+2027,Oceania,Wildfire,0.85102844
+2028,Africa,Animal incident,0.2250061
+2028,Africa,Drought,3.1506348
+2028,Africa,Earthquake,0.73332214
+2028,Africa,Epidemic,4.827119
+2028,Africa,Extreme temperature,0.7875519
+2028,Africa,Flood,26.530273
+2028,Africa,Glacial lake outburst flood,0.19558716
+2028,Africa,Impact,0.1422348
+2028,Africa,Infestation,0.40589905
+2028,Africa,Mass movement (dry),0.32954597
+2028,Africa,Mass movement (wet),1.5177917
+2028,Africa,Storm,14.46167
+2028,Africa,Volcanic activity,0.79143524
+2028,Africa,Wildfire,1.166336
+2028,Americas,Animal incident,0.79733276
+2028,Americas,Drought,1.67939
+2028,Americas,Earthquake,2.6549149
+2028,Americas,Epidemic,1.6200867
+2028,Americas,Extreme temperature,1.9406471
+2028,Americas,Flood,33.166016
+2028,Americas,Glacial lake outburst flood,0.5039253
+2028,Americas,Impact,0.4716034
+2028,Americas,Infestation,0.48553467
+2028,Americas,Mass movement (dry),0.57237244
+2028,Americas,Mass movement (wet),2.3690948
+2028,Americas,Storm,35.404297
+2028,Americas,Volcanic activity,1.4562683
+2028,Americas,Wildfire,2.8151245
+2028,Asia,Animal incident,0.4065857
+2028,Asia,Drought,1.9266319
+2028,Asia,Earthquake,35.978516
+2028,Asia,Epidemic,2.1345825
+2028,Asia,Extreme temperature,4.117958
+2028,Asia,Flood,62.310547
+2028,Asia,Glacial lake outburst flood,0.41511536
+2028,Asia,Impact,0.3042946
+2028,Asia,Infestation,0.41635132
+2028,Asia,Mass movement (dry),0.4711609
+2028,Asia,Mass movement (wet),8.713135
+2028,Asia,Storm,57.898438
+2028,Asia,Volcanic activity,1.111084
+2028,Asia,Wildfire,1.530365
+2028,Europe,Animal incident,0.019195557
+2028,Europe,Drought,0.23850346
+2028,Europe,Earthquake,0.4807434
+2028,Europe,Epidemic,0.0
+2028,Europe,Extreme temperature,14.388702
+2028,Europe,Flood,21.13379
+2028,Europe,Glacial lake outburst flood,0.006832123
+2028,Europe,Impact,0.10168457
+2028,Europe,Infestation,0.0
+2028,Europe,Mass movement (dry),0.0
+2028,Europe,Mass movement (wet),0.2744751
+2028,Europe,Storm,22.666992
+2028,Europe,Volcanic activity,0.029457092
+2028,Europe,Wildfire,1.9732513
+2028,Oceania,Animal incident,0.31768036
+2028,Oceania,Drought,0.5067711
+2028,Oceania,Earthquake,0.78486633
+2028,Oceania,Epidemic,0.5106888
+2028,Oceania,Extreme temperature,0.56100464
+2028,Oceania,Flood,6.0884247
+2028,Oceania,Glacial lake outburst flood,0.15901947
+2028,Oceania,Impact,0.26890182
+2028,Oceania,Infestation,0.21180725
+2028,Oceania,Mass movement (dry),0.34814453
+2028,Oceania,Mass movement (wet),0.6338501
+2028,Oceania,Storm,9.438721
+2028,Oceania,Volcanic activity,0.7012329
+2028,Oceania,Wildfire,0.7821274
+2029,Africa,Animal incident,0.22949219
+2029,Africa,Drought,3.0622559
+2029,Africa,Earthquake,0.70513916
+2029,Africa,Epidemic,3.5360718
+2029,Africa,Extreme temperature,0.8553314
+2029,Africa,Flood,26.439453
+2029,Africa,Glacial lake outburst flood,0.20092773
+2029,Africa,Impact,0.15394592
+2029,Africa,Infestation,0.38682556
+2029,Africa,Mass movement (dry),0.3243332
+2029,Africa,Mass movement (wet),1.5123291
+2029,Africa,Storm,15.395508
+2029,Africa,Volcanic activity,0.7503662
+2029,Africa,Wildfire,1.1919479
+2029,Americas,Animal incident,0.8302307
+2029,Americas,Drought,1.5827713
+2029,Americas,Earthquake,2.5631742
+2029,Americas,Epidemic,1.5350189
+2029,Americas,Extreme temperature,1.9322357
+2029,Americas,Flood,33.26367
+2029,Americas,Glacial lake outburst flood,0.50484467
+2029,Americas,Impact,0.48321533
+2029,Americas,Infestation,0.48114014
+2029,Americas,Mass movement (dry),0.57192993
+2029,Americas,Mass movement (wet),2.3090897
+2029,Americas,Storm,35.45703
+2029,Americas,Volcanic activity,1.3821259
+2029,Americas,Wildfire,2.723999
+2029,Asia,Animal incident,0.39994812
+2029,Asia,Drought,1.9568253
+2029,Asia,Earthquake,37.427734
+2029,Asia,Epidemic,2.0361328
+2029,Asia,Extreme temperature,4.2773438
+2029,Asia,Flood,61.933594
+2029,Asia,Glacial lake outburst flood,0.43696976
+2029,Asia,Impact,0.29864502
+2029,Asia,Infestation,0.44796753
+2029,Asia,Mass movement (dry),0.4781494
+2029,Asia,Mass movement (wet),9.101807
+2029,Asia,Storm,57.57422
+2029,Asia,Volcanic activity,1.0832825
+2029,Asia,Wildfire,1.5005798
+2029,Europe,Animal incident,0.017562866
+2029,Europe,Drought,0.31093407
+2029,Europe,Earthquake,0.47299194
+2029,Europe,Epidemic,0.0
+2029,Europe,Extreme temperature,14.8602295
+2029,Europe,Flood,21.576172
+2029,Europe,Glacial lake outburst flood,0.03616333
+2029,Europe,Impact,0.1437149
+2029,Europe,Infestation,0.0
+2029,Europe,Mass movement (dry),0.0
+2029,Europe,Mass movement (wet),0.33774567
+2029,Europe,Storm,22.838867
+2029,Europe,Volcanic activity,0.01985836
+2029,Europe,Wildfire,2.0427399
+2029,Oceania,Animal incident,0.28812408
+2029,Oceania,Drought,0.42669296
+2029,Oceania,Earthquake,0.74305916
+2029,Oceania,Epidemic,0.4736786
+2029,Oceania,Extreme temperature,0.54989624
+2029,Oceania,Flood,6.3021393
+2029,Oceania,Glacial lake outburst flood,0.15334225
+2029,Oceania,Impact,0.24182129
+2029,Oceania,Infestation,0.21685791
+2029,Oceania,Mass movement (dry),0.30566978
+2029,Oceania,Mass movement (wet),0.5947571
+2029,Oceania,Storm,10.124023
+2029,Oceania,Volcanic activity,0.6571655
+2029,Oceania,Wildfire,0.7527809
+2030,Africa,Animal incident,0.24002075
+2030,Africa,Drought,2.864441
+2030,Africa,Earthquake,0.6873131
+2030,Africa,Epidemic,2.212903
+2030,Africa,Extreme temperature,0.9643173
+2030,Africa,Flood,26.384766
+2030,Africa,Glacial lake outburst flood,0.20043945
+2030,Africa,Impact,0.16468811
+2030,Africa,Infestation,0.36805153
+2030,Africa,Mass movement (dry),0.30932617
+2030,Africa,Mass movement (wet),1.5542297
+2030,Africa,Storm,16.217285
+2030,Africa,Volcanic activity,0.7189007
+2030,Africa,Wildfire,1.2360306
+2030,Americas,Animal incident,0.8600464
+2030,Americas,Drought,1.5126572
+2030,Americas,Earthquake,2.4625702
+2030,Americas,Epidemic,1.454834
+2030,Americas,Extreme temperature,1.8994446
+2030,Americas,Flood,33.32617
+2030,Americas,Glacial lake outburst flood,0.50839233
+2030,Americas,Impact,0.4958191
+2030,Americas,Infestation,0.49151707
+2030,Americas,Mass movement (dry),0.5740051
+2030,Americas,Mass movement (wet),2.2565308
+2030,Americas,Storm,35.433594
+2030,Americas,Volcanic activity,1.301857
+2030,Americas,Wildfire,2.6438599
+2030,Asia,Animal incident,0.40075684
+2030,Asia,Drought,1.9690914
+2030,Asia,Earthquake,37.84375
+2030,Asia,Epidemic,1.944397
+2030,Asia,Extreme temperature,4.4370117
+2030,Asia,Flood,61.347656
+2030,Asia,Glacial lake outburst flood,0.47105408
+2030,Asia,Impact,0.30355835
+2030,Asia,Infestation,0.4827423
+2030,Asia,Mass movement (dry),0.481781
+2030,Asia,Mass movement (wet),9.508545
+2030,Asia,Storm,57.39258
+2030,Asia,Volcanic activity,1.0510864
+2030,Asia,Wildfire,1.4917908
+2030,Europe,Animal incident,0.034683228
+2030,Europe,Drought,0.38990784
+2030,Europe,Earthquake,0.45684814
+2030,Europe,Epidemic,0.0
+2030,Europe,Extreme temperature,15.382324
+2030,Europe,Flood,21.960938
+2030,Europe,Glacial lake outburst flood,0.07701874
+2030,Europe,Impact,0.18869019
+2030,Europe,Infestation,0.0
+2030,Europe,Mass movement (dry),0.00248909
+2030,Europe,Mass movement (wet),0.38513947
+2030,Europe,Storm,23.24707
+2030,Europe,Volcanic activity,0.022384644
+2030,Europe,Wildfire,2.1328087
+2030,Oceania,Animal incident,0.26684952
+2030,Oceania,Drought,0.38137817
+2030,Oceania,Earthquake,0.70739746
+2030,Oceania,Epidemic,0.4642105
+2030,Oceania,Extreme temperature,0.56209564
+2030,Oceania,Flood,6.5361786
+2030,Oceania,Glacial lake outburst flood,0.15618896
+2030,Oceania,Impact,0.2266655
+2030,Oceania,Infestation,0.21333313
+2030,Oceania,Mass movement (dry),0.26340485
+2030,Oceania,Mass movement (wet),0.550354
+2030,Oceania,Storm,10.781738
+2030,Oceania,Volcanic activity,0.6047354
+2030,Oceania,Wildfire,0.725132
