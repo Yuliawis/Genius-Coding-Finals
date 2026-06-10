@@ -9,7 +9,7 @@ export default function Button({
   const baseStyles = 'glass-button'
 
   const variants = {
-    primary: 'bg-gradient-to-r from-amber-700 via-orange-600 to-rose-500 text-white shadow-lg shadow-orange-900/20 hover:-translate-y-0.5 hover:shadow-xl',
+    primary: 'bg-gradient-to-r from-sky-700 via-indigo-600 to-violet-500 text-white shadow-lg shadow-indigo-900/20 hover:-translate-y-0.5 hover:shadow-xl',
     secondary: 'glass-panel text-slate-800 hover:bg-white/55',
     danger: 'bg-gradient-to-r from-rose-600 to-red-500 text-white hover:-translate-y-0.5',
     ghost: 'text-slate-700 hover:bg-white/25',

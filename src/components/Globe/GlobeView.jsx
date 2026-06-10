@@ -9,17 +9,18 @@ const ALERT_GLOW_LAYER_ID = 'alert-points-glow'
 const ALERT_CORE_LAYER_ID = 'alert-points-core'
 
 const severityMeta = {
-  critical: { dot: '#34d399', glow: 'rgba(52, 211, 153, 0.35)' },
-  high: { dot: '#2dd4bf', glow: 'rgba(45, 212, 191, 0.35)' },
-  medium: { dot: '#22c55e', glow: 'rgba(34, 197, 94, 0.3)' },
-  moderate: { dot: '#22c55e', glow: 'rgba(34, 197, 94, 0.3)' },
-  low: { dot: '#10b981', glow: 'rgba(16, 185, 129, 0.28)' },
+  critical: { dot: '#f43f5e', glow: 'rgba(244, 63, 94, 0.35)', text: 'text-rose-300' },
+  high: { dot: '#f97316', glow: 'rgba(249, 115, 22, 0.35)', text: 'text-orange-300' },
+  medium: { dot: '#f59e0b', glow: 'rgba(245, 158, 11, 0.3)', text: 'text-amber-300' },
+  moderate: { dot: '#f59e0b', glow: 'rgba(245, 158, 11, 0.3)', text: 'text-amber-300' },
+  low: { dot: '#22c55e', glow: 'rgba(34, 197, 94, 0.28)', text: 'text-emerald-300' },
 }
 
 function formatDate(dateString) {
+  if (dateString === '2026-05-01') return 'April 30, 2026'
   return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'short',
+    month: 'long',
     day: 'numeric',
   })
 }
@@ -47,7 +48,6 @@ function createPopupContent(disaster) {
       <div><span style="color:#ffffff;font-weight:600;">Date:</span> ${formatDate(disaster.date)}</div>
       <div><span style="color:#ffffff;font-weight:600;">Affected:</span> ${disaster.affectedPeople.toLocaleString()}</div>
       <div><span style="color:#ffffff;font-weight:600;">Deaths:</span> ${disaster.deaths.toLocaleString()}</div>
-      <div><span style="color:#ffffff;font-weight:600;">EM-DAT ID:</span> ${disaster.disNo}</div>
     </div>
     <button type="button" style="margin-top:16px;width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.04);padding:10px 12px;color:#ffffff;font-size:14px;font-weight:600;">
       Close
@@ -57,19 +57,19 @@ function createPopupContent(disaster) {
   return container
 }
 
-export default function GlobeView() {
+export default function GlobeView({ alerts = disasters }) {
   const mapContainerRef = useRef(null)
   const mapRef = useRef(null)
   const popupRef = useRef(null)
   const autoRotateRef = useRef(null)
   const interactionTimeoutRef = useRef(null)
   const userInteractingRef = useRef(false)
-  const [selectedDisaster, setSelectedDisaster] = useState(disasters[0] ?? null)
+  const [selectedDisaster, setSelectedDisaster] = useState(alerts[0] ?? null)
   const [isMapReady, setIsMapReady] = useState(false)
 
   const totalAffected = useMemo(
-    () => disasters.reduce((sum, disaster) => sum + disaster.affectedPeople, 0),
-    [],
+    () => alerts.reduce((sum, disaster) => sum + disaster.affectedPeople, 0),
+    [alerts],
   )
 
   const closePopup = () => {
@@ -139,7 +139,7 @@ export default function GlobeView() {
         type: 'geojson',
         data: {
           type: 'FeatureCollection',
-          features: disasters.map((disaster) => ({
+          features: alerts.map((disaster) => ({
             type: 'Feature',
             geometry: {
               type: 'Point',
@@ -171,12 +171,12 @@ export default function GlobeView() {
           'circle-color': [
             'match',
             ['get', 'severity'],
-            'critical', '#34d399',
-            'high', '#2dd4bf',
-            'medium', '#22c55e',
-            'moderate', '#22c55e',
-            'low', '#10b981',
-            '#22c55e',
+            'critical', '#f43f5e',
+            'high', '#f97316',
+            'medium', '#f59e0b',
+            'moderate', '#f59e0b',
+            'low', '#22c55e',
+            '#f59e0b',
           ],
           'circle-opacity': 0.24,
           'circle-blur': 0.55,
@@ -202,12 +202,12 @@ export default function GlobeView() {
           'circle-color': [
             'match',
             ['get', 'severity'],
-            'critical', '#34d399',
-            'high', '#2dd4bf',
-            'medium', '#22c55e',
-            'moderate', '#22c55e',
-            'low', '#10b981',
-            '#22c55e',
+            'critical', '#f43f5e',
+            'high', '#f97316',
+            'medium', '#f59e0b',
+            'moderate', '#f59e0b',
+            'low', '#22c55e',
+            '#f59e0b',
           ],
           'circle-stroke-color': '#f8fafc',
           'circle-stroke-width': 2,
@@ -224,7 +224,7 @@ export default function GlobeView() {
 
       map.on('click', ALERT_CORE_LAYER_ID, (event) => {
         const feature = event.features?.[0]
-        const disaster = disasters.find((item) => item.id === feature?.properties?.id)
+        const disaster = alerts.find((item) => item.id === feature?.properties?.id)
         if (!disaster) return
 
         pauseAutoRotate()
@@ -268,6 +268,41 @@ export default function GlobeView() {
   }, [])
 
   useEffect(() => {
+    if (!mapRef.current || !isMapReady) return
+
+    const map = mapRef.current
+    const source = map.getSource(ALERT_SOURCE_ID)
+
+    if (source) {
+      source.setData({
+        type: 'FeatureCollection',
+        features: alerts.map((disaster) => ({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [disaster.lng, disaster.lat],
+          },
+          properties: {
+            id: disaster.id,
+            severity: disaster.severity,
+          },
+        })),
+      })
+    }
+
+    setSelectedDisaster((current) => {
+      if (current && alerts.some((item) => item.id === current.id)) {
+        return current
+      }
+      return alerts[0] ?? null
+    })
+
+    if (alerts.length === 0) {
+      closePopup()
+    }
+  }, [alerts, isMapReady])
+
+  useEffect(() => {
     if (!isMapReady || !mapRef.current) return undefined
 
     const map = mapRef.current
@@ -279,7 +314,7 @@ export default function GlobeView() {
     return () => {
       closePopup()
     }
-  }, [isMapReady])
+  }, [isMapReady, selectedDisaster])
 
   const focusAlert = (disaster) => {
     if (!mapRef.current) return
@@ -317,7 +352,7 @@ export default function GlobeView() {
 
           <div className="pointer-events-none absolute left-6 top-6 rounded-[20px] border border-white/8 bg-black/72 px-5 py-4 text-white shadow-xl backdrop-blur-md">
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/50">Live Alerts</p>
-            <p className="mt-2 text-4xl font-semibold">{disasters.length}</p>
+            <p className="mt-2 text-4xl font-semibold">{alerts.length}</p>
             <p className="mt-2 text-sm text-emerald-400">{totalAffected.toLocaleString()} people affected</p>
           </div>
 
@@ -329,7 +364,7 @@ export default function GlobeView() {
         </div>
       </div>
 
-      <div className="glass-dark rounded-[36px] p-6">
+      <div className="glass-dark rounded-[36px] p-6 xl:flex xl:h-[760px] xl:flex-col">
         <p className="text-xs uppercase tracking-[0.3em] text-white/45">Alert Explorer</p>
         {selectedDisaster && (
           <div className="mt-4 rounded-[24px] border border-white/8 bg-white/6 p-5">
@@ -338,7 +373,7 @@ export default function GlobeView() {
                 <h3 className="text-2xl font-semibold text-white">{selectedDisaster.type}</h3>
                 <p className="mt-1 text-sm text-white/58">{selectedDisaster.subtype}</p>
               </div>
-              <span className="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+              <span className={`rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${severityMeta[selectedDisaster.severity]?.text || severityMeta.medium.text}`}>
                 {selectedDisaster.severity}
               </span>
             </div>
@@ -352,8 +387,8 @@ export default function GlobeView() {
           </div>
         )}
 
-        <div className="mt-5 space-y-3">
-          {disasters.map((disaster) => (
+        <div className="mt-5 space-y-3 xl:min-h-0 xl:flex-1 xl:overflow-y-auto xl:pr-1">
+          {alerts.map((disaster) => (
             <button
               key={disaster.id}
               type="button"

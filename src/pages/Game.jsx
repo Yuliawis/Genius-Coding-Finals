@@ -30,6 +30,31 @@ export default function Game() {
         title="Preparedness game redesigned like an immersive mission room"
         subtitle="Interactive Awareness Module"
         description="Turn disaster education into something judges can try live. The game keeps the scenario loop simple, visual, and easy to explain while still supporting meaningful learning outcomes."
+        image={
+          <div className="glass-panel-strong relative rounded-[28px] p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-3xl bg-white/50 p-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Scenarios</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">8</p>
+                <p className="mt-1 text-sm text-slate-600">Real-world situations</p>
+              </div>
+              <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/60">Scoring</p>
+                <p className="mt-3 text-3xl font-semibold">+10</p>
+                <p className="mt-1 text-sm text-white/70">Per safe choice</p>
+              </div>
+              <div className="col-span-2 rounded-3xl bg-white/40 p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Goal</p>
+                    <p className="mt-2 text-xl font-semibold text-slate-900">Build everyday preparedness habits</p>
+                  </div>
+                  <div className="rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-slate-700">Play</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
       />
 
       <div className="page-wrap space-y-8">

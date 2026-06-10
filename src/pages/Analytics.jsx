@@ -34,6 +34,31 @@ export default function Analytics() {
         title="Analytics pages now feel like premium executive briefings"
         subtitle="Forecasting and Insight Layer"
         description="Use this view to explain trend analysis, model confidence, and seasonal risk signals with polished cards instead of raw charts alone."
+        image={
+          <div className="glass-panel-strong relative rounded-[28px] p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-3xl bg-white/50 p-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Total Events</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">247</p>
+                <p className="mt-1 text-sm text-slate-600">+34% vs last year</p>
+              </div>
+              <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/60">Model Accuracy</p>
+                <p className="mt-3 text-3xl font-semibold">87.3%</p>
+                <p className="mt-1 text-sm text-white/70">Severity prediction</p>
+              </div>
+              <div className="col-span-2 rounded-3xl bg-white/40 p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Trend</p>
+                    <p className="mt-2 text-xl font-semibold text-slate-900">Wildfire activity rising in dry months</p>
+                  </div>
+                  <div className="rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-slate-700">Forecast</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
       />
 
       <div className="page-wrap space-y-8">

@@ -24,7 +24,13 @@ export default function Dashboard() {
     })
   }, [filters])
 
-  const latestEvents = filteredData.slice(0, 3)
+  const filteredTotalPeople = filteredData.reduce((sum, disaster) => sum + disaster.affectedPeople, 0)
+  const filteredCriticalCount = filteredData.filter((disaster) => disaster.severity === 'critical').length
+  const filteredRegionCount = new Set(filteredData.map((disaster) => disaster.location.split(',').pop().trim())).size
+
+  const latestEvents = [...filteredData]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3)
 
   return (
     <>
@@ -32,6 +38,31 @@ export default function Dashboard() {
         title="Operational dashboard with calm, high-clarity glass panels"
         subtitle="Live Response Dashboard"
         description="Track active incidents, resource posture, and near-term risk patterns in a presentation-ready control room built for fast comprehension."
+        image={
+          <div className="glass-panel-strong relative rounded-[28px] p-6">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-3xl bg-white/50 p-5">
+                <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Live Alerts</p>
+                <p className="mt-3 text-3xl font-semibold text-slate-900">{filteredData.length}</p>
+                <p className="mt-1 text-sm text-slate-600">Across {filteredRegionCount} regions</p>
+              </div>
+              <div className="rounded-3xl bg-slate-950/85 p-5 text-white">
+                <p className="text-xs uppercase tracking-[0.3em] text-white/60">Affected</p>
+                <p className="mt-3 text-3xl font-semibold">{(filteredTotalPeople / 1e6).toFixed(1)}M</p>
+                <p className="mt-1 text-sm text-white/70">People impacted</p>
+              </div>
+              <div className="col-span-2 rounded-3xl bg-white/40 p-5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Critical Watch</p>
+                    <p className="mt-2 text-xl font-semibold text-slate-900">{filteredCriticalCount} events need response</p>
+                  </div>
+                  <div className="rounded-full bg-white/60 px-4 py-2 text-sm font-medium text-slate-700">Live</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
       />
 
       <div className="page-wrap space-y-8">
@@ -39,7 +70,7 @@ export default function Dashboard() {
           Current alerts are mapped from {disasterSource.provider} data in <span className="font-semibold">{disasterSource.localExport}</span>.
         </div>
         <Alert variant="warning" title="Critical watch">
-          {criticalCount} active critical disaster events are still present in the demo dataset. Use the resource inventory and analytics views to explain prioritization decisions.
+          {filteredCriticalCount} active critical disaster events match the current filters. Use the resource inventory and analytics views to explain prioritization decisions.
         </Alert>
 
         <Filter
@@ -72,16 +103,16 @@ export default function Dashboard() {
 
         <section className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           <StatCard label="Active Disasters" value={filteredData.length} icon="Watch" color="red" trend={{ direction: 'up', value: 12, label: 'vs last month' }} />
-          <StatCard label="People Affected" value={totalPeople} unit="people" icon="Scale" color="blue" trend={{ direction: 'up', value: 23, label: 'response load' }} />
-          <StatCard label="Critical Events" value={criticalCount} icon="Priority" color="yellow" trend={{ direction: 'down', value: 8, label: 'with containment efforts' }} />
-          <StatCard label="Regions Impacted" value={regionCount} icon="Map" color="purple" trend={{ direction: 'up', value: 15, label: 'new zones monitored' }} />
+          <StatCard label="People Affected" value={filteredTotalPeople} unit="people" icon="Scale" color="blue" trend={{ direction: 'up', value: 23, label: 'response load' }} />
+          <StatCard label="Critical Events" value={filteredCriticalCount} icon="Priority" color="yellow" trend={{ direction: 'down', value: 8, label: 'with containment efforts' }} />
+          <StatCard label="Regions Impacted" value={filteredRegionCount} icon="Map" color="purple" trend={{ direction: 'up', value: 15, label: 'new zones monitored' }} />
         </section>
 
         <Section
           title="Interactive global alert map"
           subtitle="The 3D globe, alert points, popup cards, and explorer panel now live in the dashboard where the operational experience belongs."
         >
-          <GlobeView />
+          <GlobeView alerts={filteredData} />
         </Section>
 
         <section className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
@@ -113,14 +144,12 @@ export default function Dashboard() {
         <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <Section
             title="Resource inventory"
-            subtitle="Glass-styled table for live explanation of logistics, stock, and deployment readiness."
           >
             <ResourceTable />
           </Section>
 
           <Section
             title="Predictions and insights"
-            subtitle="Simple forecast takeaways that are easy to speak through in a judging demo."
           >
             <div className="grid gap-4">
               <div className="rounded-[24px] bg-white/35 p-5">

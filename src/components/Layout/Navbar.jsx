@@ -19,12 +19,12 @@ export default function Navbar() {
     <header className="relative z-30 px-4 pt-4 sm:px-6 lg:px-8">
       <nav className="glass-panel-strong mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 rounded-[32px] px-5 py-4">
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-700 to-orange-500 text-lg font-bold text-white shadow-lg shadow-amber-800/20">
-            ER
-          </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Genius Finals</p>
-            <p className="text-lg font-semibold text-slate-900">Eco Response Hub</p>
+            <img
+              src="/logo_go.png"
+              alt="ResilienCity"
+              className="h-14 w-auto object-contain"
+            />
           </div>
         </Link>
 

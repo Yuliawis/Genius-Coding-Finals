@@ -1,3 +1,5 @@
+import { statIcons } from './icons'
+
 export default function StatCard({
   label = '',
   value = 0,
@@ -5,6 +7,7 @@ export default function StatCard({
   trend = null,
   icon = null,
   color = 'green',
+  compact = false,
   className = '',
 }) {
   const colorMap = {
@@ -16,20 +19,23 @@ export default function StatCard({
   }
 
   return (
-    <div className={`glass-card min-h-[172px] ${className}`}>
+    <div className={`glass-card ${compact ? 'min-h-[138px] p-5' : 'min-h-[172px]'} ${className}`}>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-xs uppercase tracking-[0.25em] text-slate-500">{label}</p>
-          <div className="mt-4 flex items-end gap-2">
-            <span className="text-4xl font-semibold tracking-tight text-slate-900">
+          <div className={`flex items-end gap-2 ${compact ? 'mt-3' : 'mt-4'}`}>
+            <span className={`${compact ? 'text-3xl' : 'text-4xl'} font-semibold tracking-tight text-slate-900`}>
               {typeof value === 'number' ? value.toLocaleString() : value}
             </span>
             {unit && <span className="pb-1 text-sm text-slate-500">{unit}</span>}
           </div>
         </div>
-        {icon && (
-          <div className={`rounded-2xl bg-gradient-to-br px-4 py-3 text-sm font-semibold ${colorMap[color]}`}>
-            {icon}
+        {icon && statIcons[icon] && (
+          <div className={`rounded-2xl bg-gradient-to-br ${compact ? 'p-2.5' : 'p-3'} ${colorMap[color]}`}>
+            {(() => {
+              const Icon = statIcons[icon]
+              return <Icon className={compact ? 'h-4.5 w-4.5' : 'h-5 w-5'} />
+            })()}
           </div>
         )}
       </div>
